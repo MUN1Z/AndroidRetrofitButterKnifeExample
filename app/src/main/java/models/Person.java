@@ -29,10 +29,6 @@ public class Person {
     @SerializedName("photo")
     private String photo;
 
-    public String getFullName() {
-        return name + " " + surname;
-    }
-
     public String getName() {
         return name;
     }

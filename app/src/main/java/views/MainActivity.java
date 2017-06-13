@@ -1,21 +1,15 @@
 package views;
 
+import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-
 import net.felipemuniz.androidretrofitexample.R;
+import net.felipemuniz.androidretrofitexample.databinding.ActivityMainBinding;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import models.Person;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,31 +19,17 @@ import services.ServiceGenerator;
 
 public class MainActivity extends AppCompatActivity {
 
-    @BindView(R.id.tvName)
-    TextView mTvName;
 
-    @BindView(R.id.tvGender)
-    TextView mTvGender;
-
-    @BindView(R.id.tvRegion)
-    TextView mTvRegion;
-
-    @BindView(R.id.tvAge)
-    TextView mTvAge;
-
-    @BindView(R.id.ivPhoto)
-    ImageView mIvPhoto;
+    ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
-
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         getPersonOnClick(null);
+
     }
 
-    @OnClick(R.id.btnGetPerson)
     public void getPersonOnClick(View view){
         try {
 
@@ -63,14 +43,12 @@ public class MainActivity extends AppCompatActivity {
 
                     Person person = response.body();
 
-                    Glide.with(mIvPhoto.getContext())
-                            .load(person.getPhoto())
-                            .into(mIvPhoto);
 
-                    mTvName.setText("Name: " + person.getFullName());
-                    mTvGender.setText("Gender: " + person.getGender());
-                    mTvRegion.setText("Region: " + person.getRegion());
-                    mTvAge.setText("Age: " + person.getAge());
+//                    Glide.with(mIvPhoto.getContext())
+//                            .load(person.getPhoto())
+//                            .into(mIvPhoto);
+
+                    binding.setPerson(person);
                 }
 
                 @Override
