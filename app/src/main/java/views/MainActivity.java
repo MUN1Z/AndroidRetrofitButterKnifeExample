@@ -19,7 +19,6 @@ import services.ServiceGenerator;
 
 public class MainActivity extends AppCompatActivity {
 
-
     ActivityMainBinding binding;
 
     @Override
@@ -27,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         getPersonOnClick(null);
-
     }
 
     public void getPersonOnClick(View view){
@@ -40,14 +38,7 @@ public class MainActivity extends AppCompatActivity {
             person.enqueue(new Callback<Person>() {
                 @Override
                 public void onResponse(Call<Person> call, Response<Person> response) {
-
                     Person person = response.body();
-
-
-//                    Glide.with(mIvPhoto.getContext())
-//                            .load(person.getPhoto())
-//                            .into(mIvPhoto);
-
                     binding.setPerson(person);
                 }
 
